@@ -62,7 +62,7 @@ def g_blur(image):
     image = tfa.image.gaussian_filter2d(
         image,
         (3, 3),
-        sigma = 10.0     #Note: sigma = 0 is pitch black. Skip it.
+        sigma = 5.0     #Note: sigma = 0 is pitch black. Skip it.
         )
 
     return image
@@ -70,7 +70,7 @@ def g_blur(image):
 
 #Sharpen from imgaug
 def Sharp(image):
-    aug = iaa.Sharpen(alpha=0.4, lightness=1.0)
+    aug = iaa.Sharpen(alpha=0.1, lightness=1.0)
     image = aug(images = image)
 
     return image
@@ -78,7 +78,7 @@ def Sharp(image):
 
 #Salt and Pepper Noise
 def SnPnoise(image):
-    aug = iaa.SaltAndPepper(0.7)
+    aug = iaa.SaltAndPepper(0.1)
     image = aug(images = image)
 
     return image
@@ -86,7 +86,7 @@ def SnPnoise(image):
 
 #Similar to Random Erasing
 def Coarse_Dropout(image):
-    aug = iaa.CoarseDropout(0.09) # [0.02, 0.05, 0.1, 0.2, 0.3] -- Also try [0.01, 0.03, 0.04, 0.06, 0.07, 0.08, 0.09]
+    aug = iaa.CoarseDropout(0.1)
     image = aug(images = image)
     
     return image
@@ -103,7 +103,7 @@ def BnW(image):
     return blackAndWhiteImage
 
 
-#HERE YOU HAVE TO CHANGE/ADD/REMOVE PARAMETERS 
+#HERE YOU CAN TO CHANGE/ADD/REMOVE PARAMETERS 
 def evaluate_model(x_train, y_train, x_test, y_test, model, param1, n_folds=5):
     scores, histories = list(), list()
     model = model
