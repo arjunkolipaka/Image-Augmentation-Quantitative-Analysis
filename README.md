@@ -38,14 +38,13 @@ tf.keras.preprocessing.image.ImageDataGenerator(
 ```
 Visit the Keras documentation for more info: [🔗](https://keras.io/api/preprocessing/image/#imagedatagenerator-class)
 
-## Writing Your Own Augmentation
+## Writing Your Own Augmentation Function
 
 To define a custom augmentation, as we did for sharpening, blurring, colour shift etc. you can write you own custom augmentation in a function then use it by passing the fuction into the ```preprocessing_function=None``` parameter in ImageDataGenerator.
 
 Below is an example where we implement Averaging blur:
 ```
 import tensorflow_addons as tfa
-
 def avg_blur(image):
     image = tfa.image.mean_filter2d(
         image, 
@@ -77,4 +76,4 @@ def multi_aug():
 * numpy
 * Matplotlib
 * TensorFlow Addons
-* [imgaug == 0.4.0](https://github.com/aleju/imgaug)
+* imgaug == 0.4.0 [🔗](https://github.com/aleju/imgaug)
