@@ -21,7 +21,7 @@ x_test = x_test[0:1000]
 y_test = y_test[0:1000  ]
 
 
-
+#Train and Test split
 x_train= x_train.reshape((x_train.shape[0], 28, 28, 1))
 x_test= x_test.reshape((x_test.shape[0], 28, 28, 1))
 num_classes = 10
@@ -62,7 +62,7 @@ def g_blur(image):
     image = tfa.image.gaussian_filter2d(
         image,
         (3, 3),
-        sigma = 0.25     #Note: sigma = 0 is pitch black. Skip it.
+        sigma = 0.5     #Note: sigma = 0 is pitch black. Skip it.
         )
 
     return image
@@ -70,7 +70,7 @@ def g_blur(image):
 
 #Sharpen from imgaug
 def Sharp(image):
-    aug = iaa.Sharpen(alpha=0.7, lightness=1.0)
+    aug = iaa.Sharpen(alpha=0.2, lightness=1.0)
     image = aug(images = image)
 
     return image
@@ -78,7 +78,7 @@ def Sharp(image):
 
 #Salt and Pepper Noise
 def SnPnoise(image):
-    aug = iaa.SaltAndPepper(0.7)
+    aug = iaa.SaltAndPepper(0.2)
     image = aug(images = image)
 
     return image
@@ -88,7 +88,7 @@ def SnPnoise(image):
 def BnW(image):
     originalImage = image.copy()
     grayImage = originalImage.copy() #cv2.cvtColor(originalImage, cv2.COLOR_BGR2GRAY)
-    (thresh, blackAndWhiteImage) = cv2.threshold(grayImage, 191, 255, cv2.THRESH_BINARY)
+    (thresh, blackAndWhiteImage) = cv2.threshold(grayImage, 127, 255, cv2.THRESH_BINARY)
     #blackAndWhiteImage = cv2.cvtColor(blackAndWhiteImage, cv2.COLOR_BGR2RGB)
     blackAndWhiteImage = blackAndWhiteImage.reshape(28, 28, 1)
 
