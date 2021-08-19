@@ -56,7 +56,7 @@ def g_blur(image):
     image = tfa.image.gaussian_filter2d(
         image,
         (3, 3),
-        sigma = 0.25     #Note: sigma = 0 is pitch black. Skip it.
+        sigma = 0.2     #Note: sigma = 0 is pitch black. Skip it.
         )
 
     return image
@@ -72,7 +72,7 @@ def Sharp(image):
 
 #Salt and Pepper Noise
 def SnPnoise(image):
-    aug = iaa.SaltAndPepper(0.25)
+    aug = iaa.SaltAndPepper(0.1)
     image = aug(images = image)
 
     return image
@@ -82,7 +82,7 @@ def SnPnoise(image):
 def BnW(image):
     originalImage = image.copy()
     grayImage = originalImage.copy() #cv2.cvtColor(originalImage, cv2.COLOR_BGR2GRAY)
-    (thresh, blackAndWhiteImage) = cv2.threshold(grayImage, 191, 255, cv2.THRESH_BINARY)
+    (thresh, blackAndWhiteImage) = cv2.threshold(grayImage, 127, 255, cv2.THRESH_BINARY)
     #blackAndWhiteImage = cv2.cvtColor(blackAndWhiteImage, cv2.COLOR_BGR2RGB)
     blackAndWhiteImage = blackAndWhiteImage.reshape(28, 28, 1)
 
@@ -95,7 +95,7 @@ def evaluate_model(x_train, y_train, x_test, y_test, model, param1, n_folds=5):
     model = model
 
     #Image Augmentation here
-    datagen = ImageDataGenerator(rescale=1./255, zoom_range = 0.03)
+    datagen = ImageDataGenerator(rescale=1./255, zoom_range = 0.1)
 
     #Kfold crossvalidation for improving accuracy of the model
     kfold = KFold(n_folds, shuffle=True, random_state=1)
