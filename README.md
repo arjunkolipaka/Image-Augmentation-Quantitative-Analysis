@@ -10,7 +10,7 @@ $ python3 mnist.py
 ## Image Data Generator
 
 The ImageDataGenerator api from the Keras allows us to perform/generate data augmentation to the batches of image data in real-time. We have 18 different data augmentations ready to use, built into the ImageDataGenerator class.
-```
+```python
 tf.keras.preprocessing.image.ImageDataGenerator(
     featurewise_center=False,
     samplewise_center=False,
@@ -43,8 +43,9 @@ Visit the Keras documentation for more info: [🔗](https://keras.io/api/preproc
 To define a custom augmentation, as we did for sharpening, blurring, colour shift etc. you can write you own custom augmentation in a function then use it by passing the fuction into the ```preprocessing_function=None``` parameter in ImageDataGenerator.
 
 Below is an example where we implement Averaging blur:
-```
+```python
 import tensorflow_addons as tfa
+
 def avg_blur(image):
     image = tfa.image.mean_filter2d(
         image, 
@@ -59,7 +60,7 @@ The above function returns a tf.Tensor which is then passed into the model to tr
 
 We can apply multiple augmentations on an image by stacking the augmentations in the order you'd wish to be used in and put it in a function. For example,
 
-```
+```python
 def multi_aug():
     image = avg_blur(image)
     image = sharpening(image)
